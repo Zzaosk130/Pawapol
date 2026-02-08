@@ -58,7 +58,7 @@ export default function Home() {
 
   useEffect(() => {
     // Calculate initial state on client side only
-    const targetDate = Date.UTC(2026, 1, 8, 13, 0, 0) // Feb 14, 2026, 00:00 UTC
+    const targetDate = Date.UTC(2026, 1, 13, 17, 0, 0) // Feb 14, 2026, 00:00 UTC
     const now = new Date().getTime()
     const difference = targetDate - now
 
@@ -160,7 +160,7 @@ export default function Home() {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(https://png.pngtree.com/background/20250103/original/pngtree-valentines-day-background-with-red-and-pink-rose-flowers-valentine-s-picture-image_15824242.jpg)',
+          backgroundImage: 'url(/wallpaper.png)',
           // 👆 CHANGE THIS: Replace with your own image URL or '/images/yourphoto.jpg'
           
           backgroundSize: 'cover',     // Makes image cover entire area
@@ -170,23 +170,53 @@ export default function Home() {
       ></div>
       <div className="max-w-7xl mx-auto space-y-12 relative z-10">
         {/* Header */}
-        <header className="text-center space-y-4 animate-slide-up py-8">
-          <h1 className="font-display text-5xl md:text-7xl text-valentine-deep italic">
-            Happy Valentine's Day
-          </h1>
-          <p className="font-body text-xl md:text-2xl text-valentine-deep/80 italic">
-            To the most wonderful person in my life
-          </p>
-        </header>
+        <header className="relative flex justify-center py-24 animate-slide-up overflow-hidden">
+
+  {/* 🌫️ Outer mist */}
+  <div className="absolute inset-0 bg-gradient-to-b from-gray-200/40 via-gray-100/20 to-gray-200/40 blur-2xl"></div>
+
+  {/* 🪞 Glass panel */}
+  <div className="
+    relative z-10
+    max-w-3xl w-full mx-6
+    rounded-3xl
+    bg-gray-200/30
+    backdrop-blur-md
+    border border-white/30
+    shadow-[0_20px_60px_rgba(0,0,0,0.15)]
+    px-10 py-8
+    text-center
+  ">
+
+    <h1 className="font-display text-3xl md:text-4xl italic leading-tight">
+      <span className="
+        bg-gradient-to-r from-valentine-deep via-valentine-rose to-valentine-deep
+        bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer
+      ">
+        Happy Valentine&apos;s Day
+      </span>
+    </h1>
+
+    {/* ❦ Divider */}
+    <div className="mt-6 flex justify-center items-center gap-2">
+      <span className="h-[1px] w-16 bg-gradient-to-r from-transparent to-valentine-rose"></span>
+      <span className="text-valentine-rose text-xl animate-pulse">❦</span>
+      <span className="h-[1px] w-16 bg-gradient-to-l from-transparent to-valentine-rose"></span>
+    </div>
+
+    <p className="mt-6 font-body text-xl md:text-2xl text-valentine-deep/80 italic">
+      To the most wonderful person
+    </p>
+
+  </div>
+</header>
 
         {/* Main Content: Flowers Left, Album Right */}
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
           
           {/* LEFT SIDE - Bouquet of Flowers */}
           <div className="flex flex-col items-center space-y-6">
-            <h2 className="font-display text-3xl md:text-4xl text-valentine-deep text-center mb-16 italic">
-              Love Letters
-            </h2>
+          
             <div className="relative w-full max-w-md aspect-square">
               {/* Bouquet Container */}
               <div className="absolute inset-0 flex items-end justify-center pb-8">
@@ -214,7 +244,7 @@ export default function Home() {
                         <img 
                           src="/gift.png" 
                           alt="Rose"
-                          className="w-50 h-50 md:w-50 md:h-50 filter drop-shadow-lg"
+                          className="w-42 h-42 md:w-42 md:h-42s filter drop-shadow-lg"
                         />
                       </button>
                     )
@@ -226,23 +256,21 @@ export default function Home() {
 
           {/* RIGHT SIDE - Photo Album */}
           <div className="flex flex-col items-center space-y-6">
-            <h2 className="font-display text-3xl md:text-4xl text-valentine-deep text-center mb-0 italic">
-              Our Memories
-            </h2>
-            <div className="relative w-full max-w-md">
-              {/* Album Cover */}
-              <button
-                onClick={() => setShowAlbum(true)}
-                className="absolute cursor-pointer transition-all duration-300 hover:scale-125 hover:z-20 animate-float z-10"
-              >
-                <img 
-                  src="/album.png" 
-                  alt="Rose"
-                  className="w-50 h-50 md:w-50 md:h-50 filter drop-shadow-lg"
-                />
-              </button>
-              
-            </div>
+            
+           <div className="relative w-full max-w-md aspect-square">
+  <div className="absolute inset-0 flex items-end justify-center pb-8">
+    <button
+      onClick={() => setShowAlbum(true)}
+      className="cursor-pointer transition-all duration-300 hover:scale-125 hover:z-20 animate-float z-10"
+    >
+      <img 
+        src="/album.png" 
+        alt="Album"
+        className="w-42 h-42 md:w-42 md:h-42 filter drop-shadow-lg"
+      />
+    </button>
+  </div>
+</div>
           </div>
         </div>
 
@@ -295,7 +323,7 @@ export default function Home() {
         {/* Photo Album Book Modal */}
         {showAlbum && (
           <div
-            className="fixed inset-0 bg-valentine-rose/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+            className="fixed inset-0  backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
             onClick={() => setShowAlbum(false)}
           >
             <div className="relative max-w-6xl w-full h-[80vh] animate-slide-up" onClick={e => e.stopPropagation()}>
