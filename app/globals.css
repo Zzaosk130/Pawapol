@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rose: #ffb3ba;
+  --blush: #ffc8dd;
+  --cream: #fff5f7;
+  --petal: #f8d7da;
+  --deep: #d8717e;
+  --gold: #ffd700;
+}
+
+body {
+  background: linear-gradient(135deg, var(--cream) 0%, #fff 50%, var(--petal) 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rose);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--deep);
+}
+
+/* Floating petals */
+.petal {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(ellipse at center, var(--rose) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(216, 113, 126, 0.15);
+}
+
+/* Countdown glow */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 179, 186, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 179, 186, 0.8);
+  }
+}
+
+.countdown-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Fireworks Animation */
+.fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 51;
+}
+
+.firework {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: firework 2s ease-out infinite;
+}
+
+@keyframes firework {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-300px) scale(0);
+    opacity: 0;
+    box-shadow: 
+      0 0 0 20px var(--rose),
+      0 0 0 40px var(--blush),
+      0 0 0 60px var(--gold),
+      20px 20px 0 15px var(--rose),
+      -20px 20px 0 15px var(--blush),
+      20px -20px 0 15px var(--petal),
+      -20px -20px 0 15px var(--rose),
+      40px 0 0 10px var(--blush),
+      -40px 0 0 10px var(--rose),
+      0 40px 0 10px var(--petal),
+      0 -40px 0 10px var(--rose),
+      30px 30px 0 8px var(--blush),
+      -30px 30px 0 8px var(--rose),
+      30px -30px 0 8px var(--petal),
+      -30px -30px 0 8px var(--blush);
+  }
+}
+
+/* Heart sparkles */
+@keyframes heart-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 0.6;
+  }
+}
+
