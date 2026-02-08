@@ -58,7 +58,7 @@ export default function Home() {
 
   useEffect(() => {
     // Calculate initial state on client side only
-    const targetDate = Date.UTC(2026, 1, 14, 0, 0, 0) // Feb 14, 2026, 00:00 UTC
+    const targetDate = Date.UTC(2026, 1, 8, 13, 0, 0) // Feb 14, 2026, 00:00 UTC
     const now = new Date().getTime()
     const difference = targetDate - now
 
