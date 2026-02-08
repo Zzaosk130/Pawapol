@@ -78,7 +78,16 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  if (!mounted) return null
+  if (!mounted) {
+    // Show nothing during SSR/build - only render on client
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-pulse text-valentine-deep">Loading...</div>
+        </div>
+      </main>
+    )
+  }
 
   if (!isValentine) {
   return (
