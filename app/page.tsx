@@ -27,6 +27,12 @@ export default function Home() {
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
   const [showAlbum, setShowAlbum] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+  setMounted(true)
+}, [])
+
 
   useEffect(() => {
     // Create floating petals
@@ -50,7 +56,7 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const targetDate = new Date('2026-02-14T00:00:00').getTime()
+    const targetDate = new Date('2026-02-14T00:00:00Z').getTime()
 
     const interval = setInterval(() => {
       const now = new Date().getTime()
@@ -71,6 +77,8 @@ export default function Home() {
 
     return () => clearInterval(interval)
   }, [])
+
+  if (!mounted) return null
 
   if (!isValentine) {
   return (
