@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+export const dynamic = 'force-dynamic'
+export const runtime = 'edge'
 
 // Card data - you can customize these messages
 const CARDS = [
@@ -56,7 +58,15 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const targetDate = new Date('2026-02-14T00:00:00Z').getTime()
+    // Calculate initial state on client side only
+    const targetDate = Date.UTC(2026, 1, 14, 0, 0, 0) // Feb 14, 2026, 00:00 UTC
+    const now = new Date().getTime()
+    const difference = targetDate - now
+
+    // Check immediately if it's already Valentine's Day
+    if (difference <= 0) {
+      setIsValentine(true)
+    }
 
     const interval = setInterval(() => {
       const now = new Date().getTime()

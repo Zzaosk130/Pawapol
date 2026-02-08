@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // REMOVE output: 'export' - Cloudflare Pages doesn't need it!
   images: {
     unoptimized: true,
   },
