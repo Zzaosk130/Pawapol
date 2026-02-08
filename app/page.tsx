@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-export const dynamic = 'force-dynamic'
 export const runtime = 'edge'
 
 // Card data - you can customize these messages
