@@ -20,6 +20,13 @@ const PHOTOS = [
   { id: 4, url: '/4.jpeg', caption: '🌹' },
   { id: 5, url: '/5.jpeg', caption: '🌹' },
   { id: 6, url: '/6.jpeg', caption: '🌹' },
+  { id: 7, url: '/7.JPG', caption: '🌹' },
+  { id: 8, url: '/8.jpg', caption: '🌹' },
+  { id: 9, url: '/9.jpg', caption: '🌹' },
+  { id: 10, url: '/10.jpg', caption: '🌹' },
+  {id: 11, url: '/11.jpg', caption: '🌹' },
+  { id: 12, url: '/12.jpg', caption: '🌹' },
+  // Add more photos as needed
 ]
 
 export default function Home() {
@@ -29,6 +36,8 @@ export default function Home() {
   const [showAlbum, setShowAlbum] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [currentPage, setCurrentPage] = useState(0)
+
 
   useEffect(() => {
   setMounted(true)
@@ -260,7 +269,7 @@ export default function Home() {
            <div className="relative w-full max-w-md aspect-square">
   <div className="absolute inset-0 flex items-end justify-center pb-8">
     <button
-      onClick={() => setShowAlbum(true)}
+      onClick={() => {setCurrentPage(0),setShowAlbum(true)}}
       className="cursor-pointer transition-all duration-300 hover:scale-125 hover:z-20 animate-float z-10"
     >
       <img 
@@ -308,7 +317,7 @@ export default function Home() {
                   <img 
                     src="/rose.png" 
                     alt="Rose"
-                    className="w-40 h-40 md:w-40 md:h-40 mx-auto relative z-10 animate-float filter drop-shadow-2xl"
+                    className="w-64 h-64 md:w-[400px] md:h-[400px] mx-auto relative z-10 animate-float filter drop-shadow-2xl"
                   />
                 </div>
                 
@@ -321,85 +330,114 @@ export default function Home() {
         )}
 
         {/* Photo Album Book Modal */}
-        {showAlbum && (
-          <div
-            className="fixed inset-0  backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
-            onClick={() => setShowAlbum(false)}
-          >
-            <div className="relative max-w-6xl w-full h-[80vh] animate-slide-up" onClick={e => e.stopPropagation()}>
-              {/* Close button */}
+{showAlbum && (
+  <div
+    className="fixed inset-0 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+    onClick={() => setShowAlbum(false)}
+  >
+    <div className="relative max-w-6xl w-full h-[80vh] animate-slide-up" onClick={e => e.stopPropagation()}>
+      {/* Close button */}
+      <button
+        onClick={() => setShowAlbum(false)}
+        className="absolute -top-12 right-0 text-white text-2xl hover:text-valentine-rose transition-colors z-10"
+      >
+        ✕
+      </button>
+
+      {/* Book-style album */}
+      <div className="relative w-full h-full bg-valentine-cream rounded-2xl shadow-2xl overflow-hidden">
+        {/* Book spine in center */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-r from-valentine-deep/20 via-valentine-deep/40 to-valentine-deep/20 z-10"></div>
+        
+        <div className="grid grid-cols-2 h-full">
+          {/* Left page */}
+          <div className="p-8 md:p-12 overflow-y-auto relative">
+            {/* Previous button */}
+            {currentPage > 0 && (
               <button
-                onClick={() => setShowAlbum(false)}
-                className="absolute -top-12 right-0 text-white text-2xl hover:text-valentine-rose transition-colors z-10"
+                onClick={() => setCurrentPage(currentPage - 1)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-valentine-rose/80 hover:bg-valentine-rose text-white rounded-full p-3 shadow-lg transition-all hover:scale-110 z-20"
               >
-                ✕
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
               </button>
+            )}
 
-              {/* Book-style album */}
-              <div className="relative w-full h-full bg-valentine-cream rounded-2xl shadow-2xl overflow-hidden">
-                {/* Book spine in center */}
-                <div className="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 bg-gradient-to-r from-valentine-deep/20 via-valentine-deep/40 to-valentine-deep/20 z-10"></div>
-                
-                <div className="grid grid-cols-2 h-full">
-                  {/* Left page */}
-                  <div className="p-8 md:p-12 overflow-y-auto">
-                    <h3 className="font-display text-3xl text-valentine-deep mb-6 text-center">Journey And</h3>
-                    <div className="grid grid-cols-1 gap-4">
-                      {PHOTOS.slice(0, 3).map((photo, index) => (
-                        <div
-                          key={photo.id}
-                          className="cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
-                          onClick={() => setSelectedPhoto(photo.id)}
-                        >
-                          <img
-                            src={photo.url}
-                            alt={photo.caption}
-                            className="w-full aspect-[4/3] object-cover"
-                          />
-                          <div className="bg-white p-3">
-                            <p className="font-body text-valentine-deep text-center italic">{photo.caption}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right page */}
-                  <div className="p-8 md:p-12 overflow-y-auto border-l-2 border-valentine-rose/10">
-                    <h3 className="font-display text-3xl text-valentine-deep mb-6 text-center">More Memories</h3>
-                    <div className="grid grid-cols-1 gap-4">
-                      {PHOTOS.slice(3, 6).map((photo, index) => (
-                        <div
-                          key={photo.id}
-                          className="cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
-                          onClick={() => setSelectedPhoto(photo.id)}
-                        >
-                          <img
-                            src={photo.url}
-                            alt={photo.caption}
-                            className="w-full aspect-[4/3] object-cover"
-                          />
-                          <div className="bg-white p-3">
-                            <p className="font-body text-valentine-deep text-center italic">{photo.caption}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+            <h3 className="font-display text-3xl text-valentine-deep mb-6 text-center">
+              Our Journey
+            </h3>
+            <div className="grid grid-cols-1 gap-6">
+              {PHOTOS.slice(currentPage * 4, currentPage * 4 + 2).map((photo) => (
+                <div
+                  key={photo.id}
+                  className="cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
+                  onClick={() => setSelectedPhoto(photo.id)}
+                >
+                  <img
+                    src={photo.url}
+                    alt={photo.caption}
+                    className="w-full aspect-[4/3] object-cover"
+                  />
+                  <div className="bg-white p-3">
+                    <p className="font-body text-valentine-deep text-center italic">{photo.caption}</p>
                   </div>
                 </div>
-
-                {/* Page decoration */}
-                <div className="absolute top-4 left-4 text-valentine-deep/20 font-body text-sm">Page 1</div>
-                <div className="absolute top-4 right-4 text-valentine-deep/20 font-body text-sm">Page 2</div>
-              </div>
+              ))}
             </div>
           </div>
-        )}
+
+          {/* Right page */}
+          <div className="p-8 md:p-12 overflow-y-auto border-l-2 border-valentine-rose/10 relative">
+            {/* Next button */}
+            {(currentPage + 1) * 4 < PHOTOS.length && (
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-valentine-rose/80 hover:bg-valentine-rose text-white rounded-full p-3 shadow-lg transition-all hover:scale-110 z-20"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+
+            <h3 className="font-display text-3xl text-valentine-deep mb-6 text-center">
+              Our Memories
+            </h3>
+            <div className="grid grid-cols-1 gap-6">
+              {PHOTOS.slice(currentPage * 4 + 2, currentPage * 4 + 4).map((photo) => (
+                <div
+                  key={photo.id}
+                  className="cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
+                  onClick={() => setSelectedPhoto(photo.id)}
+                >
+                  <img
+                    src={photo.url}
+                    alt={photo.caption}
+                    className="w-full aspect-[4/3] object-cover"
+                  />
+                  <div className="bg-white p-3">
+                    <p className="font-body text-valentine-deep text-center italic">{photo.caption}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Page decoration */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-valentine-deep/40 font-body text-sm">
+          Pages {currentPage * 2 + 1}-{Math.min(currentPage * 2 + 2, Math.ceil(PHOTOS.length / 2))} of {Math.ceil(PHOTOS.length / 2)}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
         {/* Photo Zoom Modal */}
         {selectedPhoto !== null && (
           <div
-            className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-fade-in"
+            className="fixed inset-0 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-fade-in"
             onClick={() => setSelectedPhoto(null)}
           >
             <div className="relative max-w-4xl max-h-[90vh] animate-slide-up" onClick={e => e.stopPropagation()}>
